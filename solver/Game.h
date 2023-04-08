@@ -22,21 +22,26 @@ class Game{
         int player_turn;
 
         // Checks whether a draw or win condition has occurred.
-        string check_end_game();
+        string check_end_game(){
+            
+        };
 
         // Checks whether a draw condition has occurred.
         bool check_draw(){
             for (int i {0}; i <= 6; i++){
-                if (this->board.board[i].size() != 7){
-                    return false;
+                for (int j {0}; j <= 5; j++){
+                    if (this->board.board[i][j] == -1){
+                        return false;
+                    };
                 };
             };
-
             return true;
         };
 
         // Checks whether a win condition has occurred.
-        int check_win();
+        int check_win(){
+
+        };
 
         // Checks whether the current game state exists.
         void check_game_state();
