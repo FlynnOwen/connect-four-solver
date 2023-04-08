@@ -12,7 +12,11 @@ class Board{
         vector <vector <int>> board;
 
         void place_token(int player, int column){
-            this->board[column].push_back(player);
+            int row {5};
+            while (this->board[column][row] == -1 && row > 0){
+                row -= 1;
+            };
+            this->board[column][row] = player;
         }
 
     // No args constructor is a fresh game.
