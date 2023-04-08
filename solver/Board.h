@@ -11,7 +11,14 @@ class Board{
     public:
         vector <vector <int>> board;
 
-        void place_token(int player, int column);
+        void place_token(int player, int column){
+            this->board[column].push_back(player);
+        }
+
+    // No args constructor is a fresh game.
+    Board()
+    : board{{}, {}, {}, {}, {}, {}, {}}{};
+
 };
 
 #endif
