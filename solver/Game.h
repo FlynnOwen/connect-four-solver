@@ -51,7 +51,7 @@ class Game{
             };
         };
 
-        bool check_vertical_win(int row, int column){
+        bool _check_vertical_win(int row, int column){
             // Checks whether 4 tokens are stacked consecutively vertically.
             int total_count {1};
 
@@ -67,7 +67,7 @@ class Game{
             return false;
         };
 
-        bool check_horizontal_win(int row, int column){
+        bool _check_horizontal_win(int row, int column){
             // Checks whether 4 or more tokens are consectively horizontally adjacent.
             int total_count {1};
             int left_column {row - 1};
