@@ -1,4 +1,3 @@
-// These are import gaurds
 #ifndef _GAME_H_
 #define _GAME_H_
 #include <string>
@@ -6,23 +5,28 @@
 #include <cstdlib>
 #include <vector>
 #include "Board.h"
+#include "GameState.h"
 
 using namespace std;
 
 class Game{
+    int player_turn {1};
+
     public:
         Board board;
-        vector <int> place_token(int player, int column){
-            int row {this->board.place_token(player, column)};
+        GameStates& gamestates;
+        
+        vector <int> place_token(int column){
+            int row {this->board.place_token(this->player_turn, column)};
             
             //this->prev_column = column;
-            this->player_turn = player;
+            this->player_turn = abs(this->player_turn - 1);
             return {row, column};
         };
 
         // No args constructor - game can start with any board config.
-        Game(Board board_val)
-        : board{board_val}{};
+        Game(Board board_val, GameStates& gamestates_ref)
+        : board{board_val}, gamestates{gamestates_ref}{};
 
         // Checks whether a draw condition has occurred.
         bool check_draw(){
@@ -48,8 +52,18 @@ class Game{
             return win;
         };
 
+        // Writes the current board and turn.
+        void write_game_state(){
+            GameState game_state {this->player_turn, 0, 0, 0, false};
+            this->gamestates.gamestates.insert({this->board.board, game_state});
+        };
+
+        // Checks whether the current game state exists.
+        bool check_game_state(){
+            return this->gamestates.gamestates.count(this->board.board);
+        };
+
     private:
-        int player_turn;
         int prev_column {-1};
 
         bool _check_vertical_win(int row, int column){
@@ -140,13 +154,6 @@ class Game{
             return false;
         };
 
-        // Checks whether a draw or win condition has occurred.
-        string check_end_game();
-
-        // Checks whether the current game state exists.
-        void check_game_state();
-        // Writes the current board and turn.
-        void write_game_state();
         // Once the game has finished, update gamestate with result.
         void update_end_game_state();
 
