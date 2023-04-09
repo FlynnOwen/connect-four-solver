@@ -86,9 +86,11 @@ class Game{
             if (total_count >= 4){
                 return true;
             };
-            
             return false;
         };
+
+        bool _check_left_diagonal_win(int row, int column);
+        bool _check_right_diagonal_win(int row, int column);
 
         // Checks whether the current game state exists.
         void check_game_state();
