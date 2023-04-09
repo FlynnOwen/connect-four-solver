@@ -6,11 +6,21 @@
 
 using namespace std;
 
+void print_board(Board board){
+    for (int i {0}; i <= 6; i++){
+        for (int j {0}; j <= 5; j++){
+            cout << board.board[i][j];
+        };
+        cout << endl;
+    };
+    cout << endl;
+};
+
 int main(){
     Board my_board;
-
-    my_board.place_token(1, 3);
-    cout << my_board.board[3][0] << endl;
-
     Game my_game(my_board);
+
+    int player {1};
+    my_game.place_token(player, 4);
+    print_board(my_game.board);
 }
