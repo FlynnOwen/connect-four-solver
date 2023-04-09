@@ -3,6 +3,7 @@
 #include <vector>
 #include "Board.h"
 #include "Game.h"
+#include "GameState.h"
 
 using namespace std;
 
@@ -18,9 +19,19 @@ void print_board(Board board){
 
 int main(){
     Board my_board;
-    Game my_game(my_board);
+    GameStates game_states{};
+    Game my_game(my_board, game_states);
 
-    int player {1};
-    my_game.place_token(player, 4);
+    my_game.place_token(4);
     print_board(my_game.board);
+    my_game.write_game_state();
+
+    my_game.place_token(4);
+    print_board(my_game.board);
+    my_game.check_game_state();
+
+    my_game.write_game_state();
+    my_game.check_game_state();
+
+    cout << game_states.gamestates.size() << endl;
 }
