@@ -10,16 +10,21 @@
 using namespace std;
 
 class Game{
-    int player_turn {1};
 
     public:
+        int player_turn {1};
         Board board;
         GameStates& gamestates;
         
-        vector <int> place_token(int column){
+        vector<int> place_token(int column){
             int row {this->board.place_token(this->player_turn, column)};
+
+            bool win {check_win(row, column)};
+            bool draw {check_draw()};
             
-            //this->prev_column = column;
+            cout << win << endl;
+            cout << draw << endl;
+            
             this->player_turn = abs(this->player_turn - 1);
             return {row, column};
         };
@@ -54,8 +59,10 @@ class Game{
 
         // Writes the current board and turn.
         void write_game_state(){
-            GameState game_state {this->player_turn, 0, 0, 0, false};
-            this->gamestates.gamestates.insert({this->board.board, game_state});
+            GameState game_state {this->player_turn};
+            if (!check_game_state()){
+                this->gamestates.gamestates.insert({this->board.board, game_state});
+            }
         };
 
         // Checks whether the current game state exists.
