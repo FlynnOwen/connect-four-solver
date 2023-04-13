@@ -24,7 +24,7 @@ class Game{
             
             cout << win << endl;
             cout << draw << endl;
-            
+
             this->player_turn = abs(this->player_turn - 1);
             return {row, column};
         };
@@ -47,7 +47,11 @@ class Game{
 
         // Checks whether a win condition has occurred.
         bool check_win(int row, int column){
-            
+            cout << _check_horizontal_win(row, column) << endl;
+            cout << _check_vertical_win(row, column) << endl;
+            cout << _check_left_diagonal_win(row, column) << endl;
+            cout << _check_right_diagonal_win(row, column) << endl;
+
             bool win = 
             _check_horizontal_win(row, column) 
             || _check_vertical_win(row, column) 
@@ -77,7 +81,7 @@ class Game{
             // Checks whether 4 tokens are stacked consecutively vertically.
             int total_count {1};
 
-            while (this->board.board[column][row] == this->player_turn && row >= 0 && total_count != 4){
+            while (row > 0  && this->board.board[column][row] == this->player_turn && total_count != 4){
                 row  -= 1;
                 total_count += 1;
             };
@@ -95,12 +99,12 @@ class Game{
             int left_column {column - 1};
             int right_column {column + 1};
 
-            while (this->board.board[left_column][row] == this->player_turn && left_column >= 0){
+            while (left_column > 0 && this->board.board[left_column][row] == this->player_turn){
                 left_column -= 1;
                 total_count += 1;
             };
 
-            while (this->board.board[right_column][row] == this->player_turn && right_column <= 6){
+            while (right_column < 6 && this->board.board[right_column][row] == this->player_turn){
                 right_column += 1;
                 total_count += 1;
             };
@@ -118,13 +122,13 @@ class Game{
             int right_column {column + 1};
             int right_row {row + 1};
 
-            while (this->board.board[left_column][left_row] == this->player_turn && left_column >= 0 && left_row >= 0){
+            while (left_column > 0 && left_row > 0 && this->board.board[left_column][left_row] == this->player_turn){
                 left_column -= 1;
                 left_row -= 1;
                 total_count += 1;
             };
 
-            while (this->board.board[right_column][right_row] == this->player_turn && right_column <= 6 && right_row <= 5){
+            while (right_column < 6 && right_row < 5 && this->board.board[right_column][right_row] == this->player_turn){
                 right_column += 1;
                 right_row += 1;
                 total_count += 1;
@@ -143,13 +147,13 @@ class Game{
             int right_column {column + 1};
             int right_row {row - 1};
 
-            while (this->board.board[left_column][left_row] == this->player_turn && left_column >= 0 && left_row <= 5){
+            while (left_column > 0 && left_row < 5 && this->board.board[left_column][left_row] == this->player_turn){
                 left_column -= 1;
                 left_row += 1;
                 total_count += 1;
             };
 
-            while (this->board.board[right_column][right_row] == this->player_turn && right_column <= 6 && right_row >= 0){
+            while (right_column < 6 && right_row > 0 && this->board.board[right_column][right_row] == this->player_turn){
                 right_column += 1;
                 right_row -= 1;
                 total_count += 1;
