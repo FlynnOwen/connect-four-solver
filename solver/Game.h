@@ -47,10 +47,6 @@ class Game{
 
         // Checks whether a win condition has occurred.
         bool check_win(int row, int column){
-            cout << _check_horizontal_win(row, column) << endl;
-            cout << _check_vertical_win(row, column) << endl;
-            cout << _check_left_diagonal_win(row, column) << endl;
-            cout << _check_right_diagonal_win(row, column) << endl;
 
             bool win = 
             _check_horizontal_win(row, column) 
