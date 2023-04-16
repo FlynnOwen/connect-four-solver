@@ -26,11 +26,9 @@ void push_vector_stack(stack<int>& stack_ptr, vector<int> vector_val){
     }
 };
 
-void undo_move(stack <int>& column_record_ref, vector<vector<int>>& board_ref){
+void undo_move(int column, vector<vector<int>>& board_ref){
     // Removes a token from a board
     int row {5};
-    int column {column_record_ref.top()};
-    column_record_ref.pop();
 
     while (board_ref[column][row] == -1){
         row -= 1;
@@ -40,8 +38,26 @@ void undo_move(stack <int>& column_record_ref, vector<vector<int>>& board_ref){
     board_ref[column][row] = -1;
 };
 
-void backtrack_game(){
+void back_propogate(char result, 
+                    stack<int>& column_record_ref,
+                    stack<int>& turn_record_ref,
+                    Game& game_ref){
+    int column {column_record_ref.top()};
+    column_record_ref.pop();
 
+    undo_move(column, game_ref.board.board);
+    switch (result){
+        case 'w':
+            game_ref.gamestates.gamestates.at(game_ref.board.board).wins.at(column) += 1;
+            break;
+        case 'd':
+            game_ref.gamestates.gamestates.at(game_ref.board.board).draws.at(column) += 1;
+            break;
+        case 'l':
+            game_ref.gamestates.gamestates.at(game_ref.board.board).losses.at(column) += 1;
+            break;
+    };
+    print_board(game_ref.board);
 };
 
 int main(){
@@ -60,9 +76,9 @@ int main(){
     int column {game_states.gamestates.at(my_game.board.board).to_try.back()};
     game_states.gamestates.at(my_game.board.board).to_try.pop_back();
     cout << column << endl;
-    vector<int> placement = my_game.place_token(column);
-    cout << my_game.check_win(placement[0], placement[1]) << endl;
-    cout << my_game.check_draw() << endl;
+    char result = my_game.place_token(column);
+    //cout << my_game.check_win(placement[0], placement[1]) << endl;
+    //cout << my_game.check_draw() << endl;
     my_game.write_game_state();
     cout << my_game.check_game_state() << endl;
     
@@ -73,8 +89,11 @@ int main(){
 
     // Undo the move
     print_board(my_game.board);
-    undo_move(column_record, my_game.board.board);
-    print_board(my_game.board);
+    //undo_move(column, my_game.board.board);
+    //print_board(my_game.board);
+    if (result != 'n'){
+        back_propogate('w', column_record, turn_record, my_game);
+    };
     
     return 0;
 }
