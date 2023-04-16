@@ -13,20 +13,33 @@ class Game{
 
     public:
         int player_turn {1};
+        int column_placement;
         Board board;
         GameStates& gamestates;
         
-        vector<int> place_token(int column){
+        char place_token(int column){
+            // Places a token and checks for win, draw or loss
             int row {this->board.place_token(this->player_turn, column)};
-
+            char retval;
+            this->column_placement = column;
+            // this->row_placement {row};
             bool win {check_win(row, column)};
             bool draw {check_draw()};
             
-            cout << win << endl;
-            cout << draw << endl;
+            if (win){
+                if (this->player_turn == 1){
+                    retval = 'w';
+                } else {
+                    retval = 'l';
+                };
+            } else if (draw){
+                retval = 'd';
+            } else {
+                retval = 'n';
+            }
 
             this->player_turn = abs(this->player_turn - 1);
-            return {row, column};
+            return retval;
         };
 
         // No args constructor - game can start with any board config.
@@ -71,7 +84,6 @@ class Game{
         };
 
     private:
-        int prev_column {-1};
 
         bool _check_vertical_win(int row, int column){
             // Checks whether 4 tokens are stacked consecutively vertically.
