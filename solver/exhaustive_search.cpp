@@ -19,13 +19,6 @@ void print_board(Board board){
     cout << endl;
 };
 
-void push_vector_stack(stack<int>& stack_ptr, vector<int> vector_val){
-    // Appends a vector object to a stack object
-    for (long unsigned int i {0}; i <= vector_val.size(); i++){
-        stack_ptr.push(vector_val[i]);
-    }
-};
-
 void undo_move(int column, vector<vector<int>>& board_ref){
     // Removes a token from a board
     int row {5};
