@@ -32,23 +32,28 @@ void undo_move(int column, vector<vector<int>>& board_ref){
 };
 
 void back_propogate(char result, 
-                    stack<int>& column_record_ref,
-                    stack<int>& turn_record_ref,
-                    Game& game_ref){
-    int column {column_record_ref.top()};
-    column_record_ref.pop();
-
-    undo_move(column, game_ref.board.board);
-    switch (result){
-        case 'w':
-            game_ref.gamestates.gamestates.at(game_ref.board.board).wins.at(column) += 1;
-            break;
-        case 'd':
-            game_ref.gamestates.gamestates.at(game_ref.board.board).draws.at(column) += 1;
-            break;
-        case 'l':
-            game_ref.gamestates.gamestates.at(game_ref.board.board).losses.at(column) += 1;
-            break;
+                    Game& game_ref,
+                    Board board){
+    // undo all moves and update gamestate with the result at each undo.
+    while (true){
+        for (int i {0}; i <=6; i++){
+            for (int j {0}; j <=5; j++){
+                if (board.board[i][j] != -1){
+                    board.board[i][j] = -1;
+                        switch (result){
+                            case 'w':
+                                game_ref.gamestates.gamestates.at(board.board).wins.at(column) += 1;
+                                break;
+                            case 'd':
+                                game_ref.gamestates.gamestates.at(board.board).draws.at(column) += 1;
+                                break;
+                            case 'l':
+                                game_ref.gamestates.gamestates.at(board.board).losses.at(column) += 1;
+                                break;
+                    };
+                };
+            };
+        };
     };
     print_board(game_ref.board);
 };
@@ -85,8 +90,8 @@ int main(){
     //undo_move(column, my_game.board.board);
     //print_board(my_game.board);
     if (result != 'n'){
-        back_propogate('w', column_record, turn_record, my_game);
+        back_propogate(result, my_game, my_game.board);
     };
-    
+    print_board(my_game.board);
     return 0;
 }
