@@ -37,13 +37,19 @@ int main(){
     turn_record.push(my_game.player_turn);
     cout << game_states.gamestates.at(my_game.board.board).to_try.back() << endl;
 
-    // Undo the move
     print_board(my_game.board);
-    //undo_move(column, my_game.board.board);
-    //print_board(my_game.board);
+    cout << column_record.top() << endl;
+    cout << result << endl;
+
     if (result != 'n'){
         back_propogate(result, my_game, my_game.board);
+        undo_move(column_record, my_game.board);
     };
+
+    while (game_states.gamestates.at(my_game.board.board).to_try.size() == 0){
+        undo_move(column_record, my_game.board);
+    };
+
     print_board(my_game.board);
     return 0;
 }

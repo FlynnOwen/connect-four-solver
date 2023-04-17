@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <stack>
 #include "Board.h"
 #include "Game.h"
 #include "GameState.h"
@@ -19,16 +20,18 @@ void print_board(Board board){
     cout << endl;
 };
 
-void undo_move(int column, vector<vector<int>>& board_ref){
+void undo_move(stack<int>& column_record_ref, Board& board_ref){
     // Removes a token from a board
+    int column {column_record_ref.top()};
     int row {5};
+    column_record_ref.pop();
 
-    while (board_ref[column][row] == -1){
+    while (board_ref.board[column][row] == -1){
         row -= 1;
     }
     cout << row << endl;
     cout << column << endl;
-    board_ref[column][row] = -1;
+    board_ref.board[column][row] = -1;
 };
 
 void back_propogate(char result, 
