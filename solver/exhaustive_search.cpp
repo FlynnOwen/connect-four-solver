@@ -18,7 +18,6 @@ int main(){
 
     // Record of columns tokens were placed in to allow back-tracking
     stack<int> column_record;
-    stack<int> turn_record;
 
     my_game.write_game_state();
 
@@ -33,10 +32,7 @@ int main(){
         //cout << result << endl;
         my_game.write_game_state();
         
-        // The most recent column placed
         column_record.push(column);
-        turn_record.push(my_game.player_turn);
-        //print_board(my_game.board);
 
         if (result != 'n'){
             back_propogate(result, my_game, column_record, my_game.board);
