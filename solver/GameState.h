@@ -69,11 +69,9 @@ class GameStates{
                 string board_string = "";
                 for (int i {0}; i <= 6; i++){
                     for (int j {0}; j <= 5; j++){
-                        //cout << to_string(key[i][j]) << endl;
                         board_string += to_string(key[i][j]);
                     };
                 };
-                cout << board_string << endl; // string (key)
 
                 total_output[board_string] = 
                         {{{"wins", val.wins.at(0)},
