@@ -22,7 +22,7 @@ int main(){
 
     my_game.write_game_state();
 
-    for (int x {0}; x<= 10000; x++){
+    for (int x {0}; x<= 100000; x++){
     
         // Next column to place token
         int column {game_states.gamestates.at(my_game.board.board).to_try.back()};
@@ -45,18 +45,8 @@ int main(){
         while (game_states.gamestates.at(my_game.board.board).to_try.size() == 0){
                 undo_move(column_record, my_game);
         };
-        //cout << game_states.gamestates.at(my_game.board.board).to_try.size() << endl;
-        
-        //cout << x << endl;
     };
 
-    /*
-
-    while (game_states.gamestates.at(my_game.board.board).to_try.size() == 0){
-        undo_move(column_record, my_game);
-    };
-
-    print_board(my_game.board);
-    */
+   game_states.to_json();
     return 0;
 }
