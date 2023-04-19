@@ -27,7 +27,7 @@ int main(){
 
     my_game.write_game_state();
 
-    for (int x {0}; x<= 300000; x++){
+    for (int x {0}; x<= 1000000; x++){
         unsigned long index_choices {game_states.gamestates.at(my_game.board.board).to_try.size() - 1};
         uniform_int_distribution<int> uni(0, index_choices);
         auto index = uni(rng);
@@ -36,7 +36,6 @@ int main(){
         int column {game_states.gamestates.at(my_game.board.board).to_try.at(index)};
 
         char result = my_game.place_token(column);
-        my_game.write_game_state();
         
         // The most recent column placed
         column_record.push(column);
@@ -46,6 +45,8 @@ int main(){
             while (column_record.size() != 0){
                 undo_move(column_record, my_game);
             };
+        } else {
+            my_game.write_game_state();
         };
     };
 

@@ -27,10 +27,7 @@ int main(){
         int column {game_states.gamestates.at(my_game.board.board).to_try.back()};
         game_states.gamestates.at(my_game.board.board).to_try.pop_back();
 
-        //cout << column << endl;
         char result = my_game.place_token(column);
-        //cout << result << endl;
-        my_game.write_game_state();
         
         column_record.push(column);
 
