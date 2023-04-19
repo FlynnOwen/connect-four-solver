@@ -20,18 +20,19 @@ void print_board(Board board){
     cout << endl;
 };
 
-void undo_move(stack<int>& column_record_ref, Board& board_ref){
+void undo_move(stack<int>& column_record_ref, Game& game_ref){
     // Removes a token from a board
     int column {column_record_ref.top()};
     int row {5};
     column_record_ref.pop();
+    
 
-    while (board_ref.board[column][row] == -1){
+    while (game_ref.board.board[column][row] == -1){
         row -= 1;
-    }
-    cout << row << endl;
-    cout << column << endl;
-    board_ref.board[column][row] = -1;
+    };
+    
+    game_ref.board.board[column][row] = -1;
+    game_ref.player_turn = abs(game_ref.player_turn - 1);
 };
 
 void back_propogate(char result, 

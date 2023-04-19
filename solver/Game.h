@@ -75,6 +75,7 @@ class Game{
             GameState game_state {this->player_turn};
             if (!check_game_state()){
                 this->gamestates.gamestates.insert({this->board.board, game_state});
+                this->gamestates.add_placement_options(this->board);
             }
         };
 

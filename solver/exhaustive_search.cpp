@@ -20,36 +20,35 @@ int main(){
     stack<int> column_record;
     stack<int> turn_record;
 
-    my_game.write_game_state();
+    for (int x {0}; x<= 10; x++){
+        my_game.write_game_state();
     
-    // Next column to place token
-    int column {game_states.gamestates.at(my_game.board.board).to_try.back()};
-    game_states.gamestates.at(my_game.board.board).to_try.pop_back();
-    cout << column << endl;
-    char result = my_game.place_token(column);
-    //cout << my_game.check_win(placement[0], placement[1]) << endl;
-    //cout << my_game.check_draw() << endl;
-    my_game.write_game_state();
-    cout << my_game.check_game_state() << endl;
-    
-    // The most recent column placed
-    column_record.push(column);
-    turn_record.push(my_game.player_turn);
-    cout << game_states.gamestates.at(my_game.board.board).to_try.back() << endl;
+        // Next column to place token
+        int column {game_states.gamestates.at(my_game.board.board).to_try.back()};
+        game_states.gamestates.at(my_game.board.board).to_try.pop_back();
 
-    print_board(my_game.board);
-    cout << column_record.top() << endl;
-    cout << result << endl;
+        cout << column << endl;
+        char result = my_game.place_token(column);
 
+        my_game.write_game_state();
+        
+        // The most recent column placed
+        column_record.push(column);
+        turn_record.push(my_game.player_turn);
+        print_board(my_game.board);
+    };
+
+    /*
     if (result != 'n'){
         back_propogate(result, my_game, my_game.board);
-        undo_move(column_record, my_game.board);
+        undo_move(column_record, my_game);
     };
 
     while (game_states.gamestates.at(my_game.board.board).to_try.size() == 0){
-        undo_move(column_record, my_game.board);
+        undo_move(column_record, my_game);
     };
 
     print_board(my_game.board);
+    */
     return 0;
 }
