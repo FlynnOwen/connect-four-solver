@@ -26,11 +26,12 @@ void undo_move(stack<int>& column_record_ref, Game& game_ref){
     int row {5};
     column_record_ref.pop();
 
-    while (game_ref.board.board[column][row] == -1){
+    while (game_ref.board.board[column][row] == ' '){
         row -= 1;
     };
     
-    game_ref.board.board[column][row] = -1;
+    game_ref.board.board[column][row] = ' ';
+    // TODO: Chage to condition 'X', 'O'
     game_ref.player_turn = abs(game_ref.player_turn - 1);
 };
 
@@ -45,10 +46,10 @@ void back_propogate(char result,
         int j = 5;
 
         column_record.pop();
-        while (board.board[i][j] == -1){
+        while (board.board[i][j] == ' '){
             j--;
         };
-        board.board[i][j] = -1;
+        board.board[i][j] = ' ';
 
         switch (result){
             case 'w':

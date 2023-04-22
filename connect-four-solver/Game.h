@@ -1,7 +1,6 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 #include <string>
-#include <iostream>
 #include <cstdlib>
 #include <vector>
 #include "Board.h"
@@ -12,7 +11,8 @@ using namespace std;
 class Game{
 
     public:
-        int player_turn {1};
+        char ai_player;
+        char player_turn;
         int column_placement;
         Board board;
         GameStates& gamestates;
@@ -22,12 +22,12 @@ class Game{
             int row {this->board.place_token(this->player_turn, column)};
             char retval;
             this->column_placement = column;
-            // this->row_placement {row};
+
             bool win {check_win(row, column)};
             bool draw {check_draw()};
             
             if (win){
-                if (this->player_turn == 1){
+                if (this->player_turn == this->ai_player){
                     retval = 'w';
                 } else {
                     retval = 'l';
@@ -36,21 +36,27 @@ class Game{
                 retval = 'd';
             } else {
                 retval = 'n';
-            }
+            };
 
-            this->player_turn = abs(this->player_turn - 1);
             return retval;
         };
 
         // No args constructor - game can start with any board config.
-        Game(Board board_val, GameStates& gamestates_ref)
-        : board{board_val}, gamestates{gamestates_ref}{};
+        Game(
+            Board board_val, 
+            GameStates& gamestates_ref, 
+            char ai_player_val, 
+            char player_turn_val)
+        : board{board_val}, 
+          gamestates{gamestates_ref},
+          ai_player{ai_player_val},
+          player_turn{player_turn_val}{};
 
         // Checks whether a draw condition has occurred.
         bool check_draw(){
             for (int i {0}; i <= 6; i++){
                 for (int j {0}; j <= 5; j++){
-                    if (this->board.board[i][j] == -1){
+                    if (this->board.board[i][j] == ' '){
                         return false;
                     };
                 };
@@ -173,10 +179,6 @@ class Game{
             };
             return false;
         };
-
-        // Once the game has finished, update gamestate with result.
-        void update_end_game_state();
-
 };
 
 #endif

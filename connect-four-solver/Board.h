@@ -9,11 +9,11 @@ using namespace std;
 
 class Board{
     public:
-        vector <vector <int>> board;
+        vector <vector <char>> board;
 
-        int place_token(int player, int column){
+        int place_token(char player, int column){
             int row {5};
-            while (this->board[column][row] == -1 && row >= 0){
+            while (this->board[column][row] == ' ' && row >= 0){
                 row -= 1;
             };
             this->board[column][row + 1] = player;
@@ -23,13 +23,13 @@ class Board{
 
     // No args constructor is a fresh game.
     Board()
-    : board{{-1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1}}{};
+    : board{{' ', ' ', ' ', ' ', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' ', ' '},}{};
 
 };
 
