@@ -10,17 +10,30 @@
 #include "Game.h"
 #include "GameState.h"
 
+#define RESET "\033[0m"
+#define YELLOW "\033[33m"
+#define RED "\033[31m"
+
 using namespace std;
 
 void print_board(Board board){
-    cout << "-------" << endl;
+    system("clear");
+    cout << " 0 1 2 3 4 5 6  " << endl;
+    cout << "---------------" << endl;
     for (int i {0}; i <= 5; i++){
+        cout << '|';
         for (int j {0}; j <= 6; j++){
-            cout << board.board[i][j];
+            if (board.board[i][j] == 'O'){
+                cout << YELLOW << board.board[i][j] << RESET;
+            } else {
+                cout << RED << board.board[i][j] << RESET;
+            };
+            cout << "|";
         };
         cout << endl;
+        cout << "---------------" << endl;
     };
-    cout << "-------" << endl;
+    cout << " 0 1 2 3 4 5 6  " << endl;
     cout << endl;
 };
 
