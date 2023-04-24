@@ -17,6 +17,8 @@
 using namespace std;
 
 void print_board(Board board){
+    // Clears the terminal, and prints the current board config with 
+    // different colours for each token.
     system("clear");
     cout << " 0 1 2 3 4 5 6  " << endl;
     cout << "---------------" << endl;
