@@ -19,7 +19,7 @@ using namespace std;
 void print_board(Board board){
     // Clears the terminal, and prints the current board config with 
     // different colours for each token.
-    //system("clear");
+    system("clear");
     cout << " 0 1 2 3 4 5 6  " << endl;
     cout << "---------------" << endl;
     for (int i {0}; i <= 5; i++){
@@ -132,49 +132,38 @@ void simulate(GameStates& game_states_ref,
 
     // Simulate num_games games
     stack<int> column_record;
-    if (column == -1){
-        game.write_game_state();
-    }
+    int sim_column;
 
     // Generate a column by evaluating UCB
     // Finish the game and back-propogate to input gamestate
     for (int i {0}; i <= num_games; i++){
-        if (column != -1){
-            column_record.push(column);
-        };
+        column_record.push(column);
 
         while (true){
             // possible columns to place token
             set <int> options {check_placement_options(game.board)};
             if (game.player_turn != game.ai_player){
-                cout << "h1" << endl;
                 vector<int> columns;
                 sample(options.begin(), options.end(), back_inserter(columns), 1, rng);
-                int column = columns[0];
-                char result = game.place_token(column);
+                sim_column = columns[0];
+                char result = game.place_token(sim_column);
                 game.write_game_state();
-                column_record.push(column);
+                column_record.push(sim_column);
                 if (result != 'n'){
                     back_propogate(result, game, column_record, game.board);
                     break;
                 };
-                cout << "h2" << endl;
             } else {
-                cout << "h3" << endl;
                 GameState game_state {game_states_ref.gamestates.at(game.board.board)};
                 // TODO: Move C value to argument
-                cout << "h3.5" << endl;
-                int column {calculate_best_node_ucb(game_state, sqrt(2), options)};
-                char result = game.place_token(column);
-                column_record.push(column);
+                sim_column = calculate_best_node_ucb(game_state, sqrt(2), options);
+                char result = game.place_token(sim_column);
+                column_record.push(sim_column);
                 if (result != 'n'){
                     back_propogate(result, game, column_record, game.board);
                     break;
                 };
-                cout << "h4" << endl;
             };
-            //cout << result << endl;
-            print_board(game.board);
         };
     game.player_turn = player_turn;
     };

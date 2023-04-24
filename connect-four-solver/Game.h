@@ -20,10 +20,8 @@ class Game{
             // Places a token and checks for win, draw or loss
             int row {this->board.place_token(this->player_turn, column)};
             char retval;
-
             bool win {check_win(row, column)};
             bool draw {check_draw()};
-
             if (win){
                 if (this->player_turn == this->ai_player){
                     retval = 'w';
@@ -105,7 +103,6 @@ class Game{
                 total_count += 1;
                 row++;
             };
-
             if (total_count == 4){
                 return true;
             };
@@ -128,7 +125,6 @@ class Game{
                 total_count += 1;
                 right_column += 1;
             };
-
             if (total_count >= 4){
                 return true;
             };
@@ -136,24 +132,24 @@ class Game{
         };
 
         bool _check_left_diagonal_win(int row, int column){
+            // this direction \/
             int total_count {1};
             int left_column {column - 1};
-            int left_row {row + 1};
+            int left_row {row - 1};
             int right_column {column + 1};
-            int right_row {row - 1};
+            int right_row {row + 1};
 
-            while (left_column >= 0 && left_row <= 0 && this->board.board[left_row][left_column] == this->player_turn){
+            while (left_column >= 0 && left_row >= 0 && this->board.board[left_row][left_column] == this->player_turn){
                 left_column--;
                 left_row--;
                 total_count++;
             };
 
-            while (right_column <= 6 && right_row >= 5 && this->board.board[right_row][right_column] == this->player_turn){
+            while (right_column <= 6 && right_row <= 5 && this->board.board[right_row][right_column] == this->player_turn){
                 right_column++;
                 right_row++;
                 total_count++;
             };
-
             if (total_count >= 4){
                 return true;
             };
@@ -161,24 +157,24 @@ class Game{
         };
 
         bool _check_right_diagonal_win(int row, int column){
+            // this direction /
             int total_count {1};
             int left_column {column - 1};
-            int left_row {row - 1};
+            int left_row {row + 1};
             int right_column {column + 1};
-            int right_row {row + 1};
+            int right_row {row - 1};
 
-            while (left_column > 0 && left_row >= 0 && this->board.board[left_row][left_column] == this->player_turn){
+            while (left_column >= 0 && left_row <= 5 && this->board.board[left_row][left_column] == this->player_turn){
                 left_column--;
                 left_row++;
                 total_count++;
             };
 
-            while (right_column < 6 && right_row <= 5 && this->board.board[right_row][right_column] == this->player_turn){
+            while (right_column <= 6 && right_row >= 0 && this->board.board[right_row][right_column] == this->player_turn){
                 right_column++;
                 right_row--;
                 total_count++;
             };
-
             if (total_count >= 4){
                 return true;
             };
