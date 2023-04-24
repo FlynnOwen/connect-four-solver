@@ -12,8 +12,7 @@ class Game{
 
     public:
         char ai_player;
-        char player_turn;
-        int column_placement;
+        char player_turn {'X'};
         Board board;
         GameStates& gamestates;
         
@@ -21,7 +20,6 @@ class Game{
             // Places a token and checks for win, draw or loss
             int row {this->board.place_token(this->player_turn, column)};
             char retval;
-            this->column_placement = column;
 
             bool win {check_win(row, column)};
             bool draw {check_draw()};
@@ -38,19 +36,27 @@ class Game{
                 retval = 'n';
             };
 
+            switch (player_turn)
+            {
+            case 'X':
+                this->player_turn = 'O';
+                break;
+            case 'O':
+                this->player_turn = 'X';
+                break;
+            };
             return retval;
         };
 
-        // No args constructor - game can start with any board config.
+        // 
         Game(
+            // AI starts first with arg 'X', human with arg 'O'
+            char ai_player_val,
             Board board_val, 
-            GameStates& gamestates_ref, 
-            char ai_player_val, 
-            char player_turn_val)
-        : board{board_val}, 
-          gamestates{gamestates_ref},
-          ai_player{ai_player_val},
-          player_turn{player_turn_val}{};
+            GameStates& gamestates_ref)
+        : ai_player{ai_player_val},
+          board{board_val}, 
+          gamestates{gamestates_ref}{};
 
         // Checks whether a draw condition has occurred.
         bool check_draw(){
@@ -81,7 +87,6 @@ class Game{
             GameState game_state {this->player_turn};
             if (!check_game_state()){
                 this->gamestates.gamestates.insert({this->board.board, game_state});
-                this->gamestates.add_placement_options(this->board);
             }
         };
 
@@ -94,14 +99,15 @@ class Game{
 
         bool _check_vertical_win(int row, int column){
             // Checks whether 4 tokens are stacked consecutively vertically.
-            int total_count {1};
+            int total_count {0};
 
             while (row >= 0  && this->board.board[column][row] == this->player_turn && total_count != 4){
-                row  -= 1;
                 total_count += 1;
+                row  -= 1;
             };
 
             if (total_count == 4){
+                //cout << "vertical" << endl;
                 return true;
             };
 
@@ -125,6 +131,7 @@ class Game{
             };
             
             if (total_count >= 4){
+                //cout << "horiztonal" << endl;
                 return true;
             };
             return false;
@@ -150,6 +157,7 @@ class Game{
             };
 
             if (total_count >= 4){
+                //cout << "left_diagonal" << endl;
                 return true;
             };
             return false;
@@ -175,6 +183,7 @@ class Game{
             };
 
             if (total_count >= 4){
+                //cout << "right_diagonal" << endl;
                 return true;
             };
             return false;

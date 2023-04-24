@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <random>
+#include <map>
 #include "Board.h"
 #include "Game.h"
 #include "GameState.h"
@@ -11,6 +13,7 @@
 using namespace std;
 
 void print_board(Board board){
+    cout << "-------" << endl;
     for (int i {0}; i <= 6; i++){
         for (int j {0}; j <= 5; j++){
             cout << board.board[i][j];
@@ -18,50 +21,142 @@ void print_board(Board board){
         cout << endl;
     };
     cout << endl;
+    cout << "-------" << endl;
 };
 
-void undo_move(stack<int>& column_record_ref, Game& game_ref){
-    // Removes a token from a board
-    int column {column_record_ref.top()};
-    int row {5};
-    column_record_ref.pop();
-
-    while (game_ref.board.board[column][row] == ' '){
-        row -= 1;
-    };
-    
-    game_ref.board.board[column][row] = ' ';
-    // TODO: Chage to condition 'X', 'O'
-    game_ref.player_turn = abs(game_ref.player_turn - 1);
-};
 
 void back_propogate(char result, 
                     Game& game_ref,
-                    stack<int> column_record,
-                    Board board){
-
+                    stack<int>& column_record_ref,
+                    Board& board_ref){
+    
+    int ai_col {-1};
     // undo all moves and update gamestate with the result at each undo.
-    while (column_record.size() > 0){
-        int i = column_record.top();
+    while (column_record_ref.size() > 0){
+        int i = column_record_ref.top();
         int j = 5;
 
-        column_record.pop();
-        while (board.board[i][j] == ' '){
+        column_record_ref.pop();
+        while (board_ref.board[i][j] == ' '){
             j--;
         };
-        board.board[i][j] = ' ';
-
-        switch (result){
-            case 'w':
-                game_ref.gamestates.gamestates.at(board.board).wins.at(i) += 1;
-                break;
-            case 'd':
-                game_ref.gamestates.gamestates.at(board.board).draws.at(i) += 1;
-                break;
-            case 'l':
-                game_ref.gamestates.gamestates.at(board.board).losses.at(i) += 1;
-                break;
+        
+        // Gamestate only exists on human player turns
+        if (board_ref.board[i][j] != game_ref.ai_player){
+            if (ai_col != -1){
+                switch (result){
+                    case 'w':
+                        game_ref.gamestates.gamestates.at(board_ref.board).wins[ai_col] += 1;
+                        break;
+                    case 'd':
+                        game_ref.gamestates.gamestates.at(board_ref.board).draws[ai_col] += 1;
+                        break;
+                    case 'l':
+                        game_ref.gamestates.gamestates.at(board_ref.board).losses[ai_col] += 1;
+                        break;
+                };
+            };
+        } else {
+            ai_col = i;
         };
+        if (column_record_ref.size() != 0){
+            board_ref.board[i][j] = ' ';
+        };
+    };
+};
+
+
+// remove places a token can't be placed
+set<int> check_placement_options(Board& board_ref){
+    set<int> options;
+
+    for (int i {0}; i <= 6; i++){
+        if (board_ref.board[i][5] == ' '){
+            options.insert(i);
+        };
+    };
+
+    return options;
+};
+
+
+int calculate_best_node_ucb(GameState game_state, double C, set<int> column_options){
+    // Given a gamestate, calculates the best column to place a token in, using the UCB formula
+    // where ucb[i] = wins[i]/total_sims[i] + C* sqrt(log(sum(total_sims))/total_sims[i])
+    map<int, double> total_ucbs;
+    int total_sims {reduce(game_state.wins.begin(), game_state.wins.end()) 
+                  + reduce(game_state.draws.begin(), game_state.draws.end()) 
+                  + reduce(game_state.losses.begin(), game_state.losses.end())};
+    
+    for (int i: column_options){
+        int wins_node {game_state.wins[i]};
+        // Cast to double to use division in UCB calculation
+        double sims_node {static_cast<double>(wins_node) + game_state.draws[i] + game_state.losses[i]};
+
+        double ucb_node {(wins_node/sims_node) + (C * sqrt(log(total_sims)/sims_node))};
+        if (isnan(ucb_node)){
+            ucb_node = INFINITY;
+        }
+        total_ucbs[i] = ucb_node;
+    };
+
+    //auto best_node {max_element(total_ucbs.begin(),total_ucbs.end(),[] (const pair<char,int>& a, const pair<char,int>& b)->bool{ return a.second < b.second; })->first};
+    int best_node = max_element(total_ucbs.begin(), total_ucbs.end(), [](const auto &x, const auto &y){return x.second < y.second;})->first;
+
+    return best_node;
+};
+
+
+void simulate(GameStates& game_states_ref,
+              Game game,
+              int column,
+              int num_games,
+              mt19937 rng){
+    // Perform simulation given a board configuration.
+    char player_turn {game.player_turn};
+
+    // Simulate num_games games
+    stack<int> column_record;
+
+    // Generate a column by evaluating UCB
+    // Finish the game and back-propogate to input gamestate
+    for (int i {0}; i <= num_games; i++){
+        column_record.push(column);
+
+        while (true){
+            // possible columns to place token
+            set <int> options {check_placement_options(game.board)};
+
+            if (game.player_turn != game.ai_player){
+                vector<int> columns;
+                sample(options.begin(), options.end(), back_inserter(columns), 1, rng);
+                
+                int column = columns[0];
+                char result = game.place_token(column);
+                game.write_game_state();
+                column_record.push(column);
+                if (result != 'n'){
+                    //print_board(game.board);
+                    //cout << result << endl;
+                    back_propogate(result, game, column_record, game.board);
+                    break;
+                };
+            } else {
+                GameState game_state {game_states_ref.gamestates.at(game.board.board)};
+                // TODO: Move C value to argument
+
+                int column {calculate_best_node_ucb(game_state, sqrt(2), options)};
+                char result = game.place_token(column);
+                column_record.push(column);
+                if (result != 'n'){
+                    //print_board(game.board);
+                    //cout << result << endl;
+                    back_propogate(result, game, column_record, game.board);
+                    break;
+                };
+            };
+        };
+    game.player_turn = player_turn;
     };
 };
 #endif
