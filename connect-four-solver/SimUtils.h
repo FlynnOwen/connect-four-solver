@@ -14,14 +14,14 @@ using namespace std;
 
 void print_board(Board board){
     cout << "-------" << endl;
-    for (int i {0}; i <= 6; i++){
-        for (int j {0}; j <= 5; j++){
+    for (int i {0}; i <= 5; i++){
+        for (int j {0}; j <= 6; j++){
             cout << board.board[i][j];
         };
         cout << endl;
     };
-    cout << endl;
     cout << "-------" << endl;
+    cout << endl;
 };
 
 
@@ -33,12 +33,12 @@ void back_propogate(char result,
     int ai_col {-1};
     // undo all moves and update gamestate with the result at each undo.
     while (column_record_ref.size() > 0){
-        int i = column_record_ref.top();
-        int j = 5;
+        int i = 0;
+        int j = column_record_ref.top();
 
         column_record_ref.pop();
         while (board_ref.board[i][j] == ' '){
-            j--;
+            i++;
         };
         
         // Gamestate only exists on human player turns
@@ -57,7 +57,7 @@ void back_propogate(char result,
                 };
             };
         } else {
-            ai_col = i;
+            ai_col = j;
         };
         if (column_record_ref.size() != 0){
             board_ref.board[i][j] = ' ';
@@ -70,9 +70,9 @@ void back_propogate(char result,
 set<int> check_placement_options(Board& board_ref){
     set<int> options;
 
-    for (int i {0}; i <= 6; i++){
-        if (board_ref.board[i][5] == ' '){
-            options.insert(i);
+    for (int j {0}; j <= 6; j++){
+        if (board_ref.board[0][j] == ' '){
+            options.insert(j);
         };
     };
 
@@ -130,27 +130,21 @@ void simulate(GameStates& game_states_ref,
             if (game.player_turn != game.ai_player){
                 vector<int> columns;
                 sample(options.begin(), options.end(), back_inserter(columns), 1, rng);
-                
                 int column = columns[0];
                 char result = game.place_token(column);
                 game.write_game_state();
                 column_record.push(column);
                 if (result != 'n'){
-                    //print_board(game.board);
-                    //cout << result << endl;
                     back_propogate(result, game, column_record, game.board);
                     break;
                 };
             } else {
                 GameState game_state {game_states_ref.gamestates.at(game.board.board)};
                 // TODO: Move C value to argument
-
                 int column {calculate_best_node_ucb(game_state, sqrt(2), options)};
                 char result = game.place_token(column);
                 column_record.push(column);
                 if (result != 'n'){
-                    //print_board(game.board);
-                    //cout << result << endl;
                     back_propogate(result, game, column_record, game.board);
                     break;
                 };

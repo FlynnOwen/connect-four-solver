@@ -60,8 +60,8 @@ class Game{
 
         // Checks whether a draw condition has occurred.
         bool check_draw(){
-            for (int i {0}; i <= 6; i++){
-                for (int j {0}; j <= 5; j++){
+            for (int i {0}; i <= 5; i++){
+                for (int j {0}; j <= 6; j++){
                     if (this->board.board[i][j] == ' '){
                         return false;
                     };
@@ -101,13 +101,12 @@ class Game{
             // Checks whether 4 tokens are stacked consecutively vertically.
             int total_count {0};
 
-            while (row >= 0  && this->board.board[column][row] == this->player_turn && total_count != 4){
+            while (row >= 0  && this->board.board[row][column] == this->player_turn && total_count != 4){
                 total_count += 1;
                 row  -= 1;
             };
 
             if (total_count == 4){
-                //cout << "vertical" << endl;
                 return true;
             };
 
@@ -120,12 +119,12 @@ class Game{
             int left_column {column - 1};
             int right_column {column + 1};
 
-            while (left_column >= 0 && this->board.board[left_column][row] == this->player_turn){
+            while (left_column >= 0 && this->board.board[row][left_column] == this->player_turn){
                 total_count += 1;
                 left_column -= 1;
             };
 
-            while (right_column <= 6 && this->board.board[right_column][row] == this->player_turn){
+            while (right_column <= 6 && this->board.board[row][right_column] == this->player_turn){
                 total_count += 1;
                 right_column += 1;
             };
@@ -144,20 +143,19 @@ class Game{
             int right_column {column + 1};
             int right_row {row + 1};
 
-            while (left_column >= 0 && left_row >= 0 && this->board.board[left_column][left_row] == this->player_turn){
+            while (left_column >= 0 && left_row >= 0 && this->board.board[left_row][left_column] == this->player_turn){
                 left_column -= 1;
                 left_row -= 1;
                 total_count += 1;
             };
 
-            while (right_column <= 6 && right_row <= 5 && this->board.board[right_column][right_row] == this->player_turn){
+            while (right_column <= 6 && right_row <= 5 && this->board.board[right_row][right_column] == this->player_turn){
                 right_column += 1;
                 right_row += 1;
                 total_count += 1;
             };
 
             if (total_count >= 4){
-                //cout << "left_diagonal" << endl;
                 return true;
             };
             return false;
@@ -170,20 +168,19 @@ class Game{
             int right_column {column + 1};
             int right_row {row - 1};
 
-            while (left_column > 0 && left_row <= 5 && this->board.board[left_column][left_row] == this->player_turn){
+            while (left_column > 0 && left_row <= 5 && this->board.board[left_row][left_column] == this->player_turn){
                 left_column -= 1;
                 left_row += 1;
                 total_count += 1;
             };
 
-            while (right_column < 6 && right_row >= 0 && this->board.board[right_column][right_row] == this->player_turn){
+            while (right_column < 6 && right_row >= 0 && this->board.board[right_row][right_column] == this->player_turn){
                 right_column += 1;
                 right_row -= 1;
                 total_count += 1;
             };
 
             if (total_count >= 4){
-                //cout << "right_diagonal" << endl;
                 return true;
             };
             return false;
