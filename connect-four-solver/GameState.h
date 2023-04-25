@@ -7,8 +7,10 @@
 
 using namespace std;
 
+// A single node in the gametree of MCTS. It includes the number 
+// of wins, draws, and lossses for each potential column placement 
+// directly following this gamestate.
 class GameState{
-    // Snapshot of a game a particular time.
     public:
         char player_turn;
         // count of wins, draws and losses per possible column.
@@ -21,9 +23,10 @@ class GameState{
 };
 
 
+// Gamestates is the gametree from MCTS, represented as a map.
+// It is a mapping of Board.board to GameState.
 class GameStates{
     public:
-        // mapping of board to GameState
         map <vector <vector <char>>, GameState> gamestates;
 };
 

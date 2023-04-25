@@ -7,7 +7,9 @@
 
 using namespace std;
 
+// Formatted arguments to be used in the main function (main.cpp).
 class InputArgs{
+
     public:
         char ai_token;
         bool trash_talk;
@@ -21,8 +23,10 @@ class InputArgs{
       difficulty{difficulty_val}{};
 };
 
+
+// Take inputs through stdin, and construct / return a InputArgs object.
 InputArgs load_inputs(){
-    // AI starts first with arg 'X', human with arg 'O'
+
     char turn_input;
     cout << "Would you like to take the first turn? y/n" << endl;
     cin >> turn_input;
@@ -46,7 +50,8 @@ InputArgs load_inputs(){
         trash_talk = false;
     };
 
-    // Option for the AI to trash talk
+    // Difficulty of bot - more difficult means more games played during
+    // simulation step.
     char difficulty_input;
     cout << "Select a difficulty level 1 - 5: " << endl;
     cin >> difficulty_input;

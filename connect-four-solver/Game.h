@@ -8,30 +8,36 @@
 
 using namespace std;
 
+// Game is an encapsulation of connect 4 as a game.
+// Is includes token placement, keeping track of player turns in state,
+// and checking all possible win and draw conditions.
 class Game{
 
     public:
         char ai_player;
-        char player_turn {'X'};
+        char player_turn {'X'};  // First turn always starts with 'X' token.
         Board board;
         GameStates& gamestates;
         
+        // Places a token and checks for win, draw or loss, as
+        // well as changing state to be the next players turn.
         char place_token(int column){
-            // Places a token and checks for win, draw or loss
+            
+            char result;
             int row {this->board.place_token(this->player_turn, column)};
-            char retval;
             bool win {check_win(row, column)};
             bool draw {check_draw()};
+
             if (win){
                 if (this->player_turn == this->ai_player){
-                    retval = 'w';
+                    result = 'w';
                 } else {
-                    retval = 'l';
+                    result = 'l';
                 };
             } else if (draw){
-                retval = 'd';
+                result = 'd';
             } else {
-                retval = 'n';
+                result = 'n';
             };
 
             switch (player_turn)
@@ -43,12 +49,24 @@ class Game{
                 this->player_turn = 'X';
                 break;
             };
-            return retval;
+
+            return result;
+        };
+        
+        // Returns true if the current gamestate exists.
+        bool check_game_state(){
+            return this->gamestates.gamestates.count(this->board.board);
+        };
+        
+        // If there isn't a node (Gamestate) in the MCTS gametree, then create a node (Gamestate).
+        void write_game_state(){
+            GameState game_state {this->player_turn};
+            if (!check_game_state()){
+                this->gamestates.gamestates.insert({this->board.board, game_state});
+            }
         };
 
-        // 
         Game(
-            // AI starts first with arg 'X', human with arg 'O'
             char ai_player_val,
             Board board_val, 
             GameStates& gamestates_ref)
@@ -56,8 +74,11 @@ class Game{
           board{board_val}, 
           gamestates{gamestates_ref}{};
 
-        // Checks whether a draw condition has occurred.
+    private:
+
+        // Draw occurs if all possible spaces are filled on the board.
         bool check_draw(){
+
             for (int i {0}; i <= 5; i++){
                 for (int j {0}; j <= 6; j++){
                     if (this->board.board[i][j] == ' '){
@@ -65,10 +86,10 @@ class Game{
                     };
                 };
             };
+
             return true;
         };
 
-        // Checks whether a win condition has occurred.
         bool check_win(int row, int column){
 
             bool win = 
@@ -80,29 +101,15 @@ class Game{
             return win;
         };
 
-        // Writes the current board and turn.
-        void write_game_state(){
-            GameState game_state {this->player_turn};
-            if (!check_game_state()){
-                this->gamestates.gamestates.insert({this->board.board, game_state});
-            }
-        };
-
-        // Checks whether the current game state exists.
-        bool check_game_state(){
-            return this->gamestates.gamestates.count(this->board.board);
-        };
-
-    private:
-
+        // Checks whether 4 tokens are stacked consecutively vertically.
         bool _check_vertical_win(int row, int column){
-            // Checks whether 4 tokens are stacked consecutively vertically.
             int total_count {0};
 
             while (row <= 5  && this->board.board[row][column] == this->player_turn && total_count != 4){
                 total_count += 1;
                 row++;
             };
+
             if (total_count == 4){
                 return true;
             };
@@ -110,8 +117,8 @@ class Game{
             return false;
         };
 
+        // Checks whether 4 or more tokens are consectively horizontally adjacent.
         bool _check_horizontal_win(int row, int column){
-            // Checks whether 4 or more tokens are consectively horizontally adjacent.
             int total_count {1};
             int left_column {column - 1};
             int right_column {column + 1};
@@ -131,8 +138,8 @@ class Game{
             return false;
         };
 
+        // Checks whether 4 or more tokens are adjacent in this direction: \ /
         bool _check_left_diagonal_win(int row, int column){
-            // this direction \/
             int total_count {1};
             int left_column {column - 1};
             int left_row {row - 1};
@@ -156,8 +163,8 @@ class Game{
             return false;
         };
 
+        // Checks whether 4 or more tokens are adjacent in this direction: /
         bool _check_right_diagonal_win(int row, int column){
-            // this direction /
             int total_count {1};
             int left_column {column - 1};
             int left_row {row + 1};
@@ -180,6 +187,7 @@ class Game{
             };
             return false;
         };
+
 };
 
 #endif
