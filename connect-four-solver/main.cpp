@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "GameState.h"
 #include "SimUtils.h"
+#include "InputLoader.h"
 
 using namespace std;
 
@@ -20,19 +21,10 @@ int main(){
     Board my_board;
     GameStates game_states{};
 
-    // AI starts first with arg 'X', human with arg 'O'
-    char turn_input;
-    cout << "Would you like to take the first turn? y/n" << endl;
-    cin >> turn_input;
+    // Load inputs required for game initialisation
+    InputArgs init_args {load_inputs()};
 
-    char ai_token;
-    if (turn_input == 'y'){
-        ai_token = 'O';
-    } else {
-        ai_token = 'X';
-    };
-
-    Game my_game(ai_token, my_board, game_states);
+    Game my_game(init_args.ai_token, my_board, game_states);
     int column {-1};
     char result;
     my_game.write_game_state();
@@ -40,7 +32,7 @@ int main(){
     while (true){
         print_board(my_game.board);
 
-        if (my_game.player_turn != ai_token){
+        if (my_game.player_turn != init_args.ai_token){
             cout << "Enter a column" << endl;
             cin >> column;
             result = my_game.place_token(column);

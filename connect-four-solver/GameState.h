@@ -1,4 +1,3 @@
-// These are import gaurds
 #ifndef _GAMESTATE_H_
 #define _GAMESTATE_H_
 #include <string>
@@ -10,10 +9,8 @@
 #include <set>
 #include <fstream>
 #include "Board.h"
-#include "json.hpp"
 
 using namespace std;
-using json = nlohmann::json;
 
 class GameState{
     // Snapshot of a game a particular time.
