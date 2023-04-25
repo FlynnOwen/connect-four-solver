@@ -17,13 +17,11 @@ int main(){
     random_device rd;
     mt19937 rng {rd()};
 
-    // init game vars
-    Board my_board;
-    GameStates game_states{};
-
     // Load inputs required for game initialisation
     InputArgs init_args {load_inputs()};
 
+    Board my_board;
+    GameStates game_states{};
     Game my_game(init_args.ai_token, my_board, game_states);
     int column {-1};
     char result;
