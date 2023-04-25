@@ -2,7 +2,9 @@
 
 <p align="center"> An intelligent connect four advisary. </p>
 
-<img align="center" width="400" height="300" src="img/connect-four-solver.gif"/>
+<p align="center">
+<img width="400" height="300" src="img/connect-four-solver.gif"/>
+</p>
 
 Play against an AI using several modes of difficulty, with the addition of optional trash talking!
 
