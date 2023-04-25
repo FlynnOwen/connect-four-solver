@@ -1,7 +1,8 @@
-# connect-four-solver
+<h1 align="center"> Connect Four Solver </h1> 
+
 An intelligent connect four advisary.
 
-<img align="right" width="400" height="300" src="img/connect-four-solver.gif"/>
+<img align="center" width="400" height="300" src="img/connect-four-solver.gif"/>
 
 Play against an AI using several modes of difficulty, with the addition of optional trash talking!
 
