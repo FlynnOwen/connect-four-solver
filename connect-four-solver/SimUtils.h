@@ -169,4 +169,24 @@ void simulate(GameStates& game_states_ref,
     game.player_turn = player_turn;
     };
 };
+
+void generate_trash_talk(){
+    random_device rd;
+    mt19937 rng {rd()};
+    set<string> trash_talk_options {{"AI: 'You call that a move?!'"},
+                                    {"AI: 'Have actually played Connect 4 before?'"},
+                                    {"AI: 'How does it feel getting outplayed by a bot?'"},
+                                    {"AI: 'I don't have a grandma, but if I did, she would play better than you.'"},
+                                    {"AI: 'Did you place that last token in the wrong column? Oh you didn't? Could've fooled me.'"},
+                                    {"AI: 'Just give up already!'"},
+                                    {"AI: 'It's over. Just concede.'"},
+                                    {"AI: 'There's the option of playing with a difficulty of 1... Maybe give that a go.'"},
+                                    {"AI: 'You'll never get 4 in a row. Just 4feit. (See what I did there?)'"},
+                                    {"AI: 'There are easier games than this you know? Maybe try connect 2 or connect 3.'"},
+                                    {"AI: 'How does it feel knowing a bot is smarter than you?'"}};
+
+    vector<string> trash_talk_output;
+    sample(trash_talk_options.begin(), trash_talk_options.end(), back_inserter(trash_talk_output), 1, rng);
+    cout << trash_talk_output[0] << endl;
+};
 #endif

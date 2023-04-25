@@ -30,6 +30,9 @@ int main(){
         print_board(my_game.board);
 
         if (my_game.player_turn != init_args.ai_token){
+            if (init_args.trash_talk){
+                generate_trash_talk();
+            };
             cout << "Enter a column" << endl;
             cin >> column;
             result = my_game.place_token(column);
