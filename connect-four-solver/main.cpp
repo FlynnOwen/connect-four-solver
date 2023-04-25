@@ -35,7 +35,7 @@ int main(){
             result = my_game.place_token(column);
             my_game.write_game_state();
         } else {
-            simulate(my_game.gamestates, my_game, column, 15000, rng);
+            simulate(my_game.gamestates, my_game, column, init_args.difficulty, rng);
             vector<int> gamestate_wins {my_game.gamestates.gamestates.at(my_game.board.board).wins};
             column = max_element(gamestate_wins.begin(), gamestate_wins.end()) - gamestate_wins.begin();
             cout << column << endl;

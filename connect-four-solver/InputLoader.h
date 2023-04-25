@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -49,8 +50,12 @@ InputArgs load_inputs(){
     char difficulty_input;
     cout << "Select a difficulty level 1 - 5: " << endl;
     cin >> difficulty_input;
-
-    int difficulty {static_cast<int>(difficulty_input)};
+    map<char, int> difficulty_mapping {{'1', 1000},
+                                       {'2', 2500},
+                                       {'3', 5000},
+                                       {'4', 10000},
+                                       {'5', 15000}};
+    int difficulty {difficulty_mapping.at(difficulty_input)};
 
     return InputArgs(ai_token, trash_talk, difficulty);
 
