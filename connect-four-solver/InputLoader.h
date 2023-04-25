@@ -62,8 +62,8 @@ InputArgs load_inputs()
     char difficulty_input;
     cout << "Select a difficulty level 1 - 5: " << endl;
     cin >> difficulty_input;
-    map<char, int> difficulty_mapping{{'1', 1000},
-                                      {'2', 2500},
+    map<char, int> difficulty_mapping{{'1', 500},
+                                      {'2', 1500},
                                       {'3', 5000},
                                       {'4', 10000},
                                       {'5', 15000}};
