@@ -5,9 +5,9 @@
 #include <vector>
 #include <set>
 #include <random>
-#include "Board.h"
-#include "Game.h"
-#include "GameState.h"
+#include "board.h"
+#include "game.h"
+#include "gamestate.h"
 
 #define RESET "\033[0m"
 #define YELLOW "\033[33m"

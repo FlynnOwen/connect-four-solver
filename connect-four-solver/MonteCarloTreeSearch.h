@@ -5,10 +5,10 @@
 #include <random>
 #include <set>
 #include <map>
-#include "Board.h"
-#include "Game.h"
-#include "GameState.h"
-#include "Utils.h"
+#include "board.h"
+#include "game.h"
+#include "gamestate.h"
+#include "utils.h"
 
 // Constant used to balance exploration vs exploitation in UCB formula.
 #define C sqrt(2)

@@ -2,12 +2,12 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include "Board.h"
-#include "Game.h"
-#include "GameState.h"
-#include "Utils.h"
-#include "MonteCarloTreeSearch.h"
-#include "InputLoader.h"
+#include "board.h"
+#include "game.h"
+#include "gamestate.h"
+#include "utils.h"
+#include "montecarlotreesearch.h"
+#include "inputloader.h"
 
 using namespace std;
 

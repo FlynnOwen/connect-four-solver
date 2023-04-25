@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "Board.h"
+#include "board.h"
 
 using namespace std;
 

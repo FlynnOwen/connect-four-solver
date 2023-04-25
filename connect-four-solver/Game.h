@@ -3,8 +3,8 @@
 #include <string>
 #include <cstdlib>
 #include <vector>
-#include "Board.h"
-#include "GameState.h"
+#include "board.h"
+#include "gamestate.h"
 
 using namespace std;
 
