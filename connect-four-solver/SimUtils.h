@@ -5,6 +5,7 @@
 #include <vector>
 #include <stack>
 #include <random>
+#include <set>
 #include <map>
 #include "Board.h"
 #include "Game.h"

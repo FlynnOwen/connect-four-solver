@@ -1,8 +1,6 @@
 #include <string>
 #include <iostream>
-#include <cstdlib>
 #include <vector>
-#include <stack>
 #include <random>
 #include "Board.h"
 #include "Game.h"
@@ -23,6 +21,7 @@ int main(){
     Board my_board;
     GameStates game_states{};
     Game my_game(init_args.ai_token, my_board, game_states);
+
     int column {-1};
     char result;
     my_game.write_game_state();

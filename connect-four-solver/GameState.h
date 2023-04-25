@@ -1,13 +1,8 @@
 #ifndef _GAMESTATE_H_
 #define _GAMESTATE_H_
-#include <string>
-#include <iostream>
 #include <vector>
 #include <map>
 #include <string>
-#include <stack>
-#include <set>
-#include <fstream>
 #include "Board.h"
 
 using namespace std;
