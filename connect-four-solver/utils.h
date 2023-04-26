@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <random>
+#include <iomanip>
 #include "board.h"
 #include "game.h"
 #include "gamestate.h"
@@ -18,13 +19,14 @@ using namespace std;
 // Clears the terminal, and prints the current board config with
 // different colours for each token.
 void print_board(Board board)
+
 {
     system("clear");
-    cout << " 0 1 2 3 4 5 6  " << endl;
-    cout << "---------------" << endl;
+    cout << setw(46) << right << " 0 1 2 3 4 5 6  " << endl;
+    cout << setw(45) << right << "---------------" << endl;
     for (int i{0}; i <= 5; i++)
     {
-        cout << '|';
+        cout << setw(31) << right << '|';
         for (int j{0}; j <= 6; j++)
         {
             if (board.board[i][j] == 'O')
@@ -38,9 +40,9 @@ void print_board(Board board)
             cout << "|";
         };
         cout << endl;
-        cout << "---------------" << endl;
+        cout << setw(45) << right << "---------------" << endl;
     };
-    cout << " 0 1 2 3 4 5 6  " << endl;
+    cout << setw(46) << right << " 0 1 2 3 4 5 6  " << endl;
     cout << endl;
 };
 
