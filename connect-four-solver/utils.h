@@ -24,10 +24,10 @@ void print_board(Board board)
     system("clear");
     cout << setw(46) << right << " 0 1 2 3 4 5 6  " << endl;
     cout << setw(45) << right << "---------------" << endl;
-    for (int i{0}; i <= 5; i++)
+    for (int i{0}; i <= dimensions::num_rows; i++)
     {
         cout << setw(31) << right << '|';
-        for (int j{0}; j <= 6; j++)
+        for (int j{0}; j <= dimensions::num_columns; j++)
         {
             if (board.board[i][j] == 'O')
             {
@@ -51,7 +51,7 @@ set<int> check_placement_options(Board &board_ref)
 {
     set<int> options;
 
-    for (int j{0}; j <= 6; j++)
+    for (int j{0}; j <= dimensions::num_columns; j++)
     {
         if (board_ref.board[0][j] == ' ')
         {

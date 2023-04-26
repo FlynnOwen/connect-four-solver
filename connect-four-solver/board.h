@@ -7,6 +7,15 @@
 
 using namespace std;
 
+namespace dimensions {
+    // Number of rows in board (0-indexed)
+    int num_rows {5};
+    // Number of columns in board (0-indexed)
+    int num_columns {6};
+    // Number of adjacent tokens to win
+    int connected_win {4};
+}
+
 // Class that encapsulates the connect 4 board as a 6 x 7 matrix of characters.
 class Board
 {
@@ -17,7 +26,7 @@ public:
     int place_token(char player, int column)
     {
         int row{0};
-        while (row <= 5 && this->board[row][column] == ' ')
+        while (row <= dimensions::num_rows && this->board[row][column] == ' ')
         {
             row += 1;
         };

@@ -92,9 +92,9 @@ private:
     bool check_draw()
     {
 
-        for (int i{0}; i <= 5; i++)
+        for (int i{0}; i <= dimensions::num_rows; i++)
         {
-            for (int j{0}; j <= 6; j++)
+            for (int j{0}; j <= dimensions::num_columns; j++)
             {
                 if (this->board.board[i][j] == ' ')
                 {
@@ -120,13 +120,13 @@ private:
     {
         int total_count{0};
 
-        while (row <= 5 && this->board.board[row][column] == this->player_turn && total_count != 4)
+        while (row <= dimensions::num_rows && this->board.board[row][column] == this->player_turn && total_count != dimensions::connected_win)
         {
             total_count += 1;
             row++;
         };
 
-        if (total_count == 4)
+        if (total_count == dimensions::connected_win)
         {
             return true;
         };
@@ -147,12 +147,12 @@ private:
             left_column -= 1;
         };
 
-        while (right_column <= 6 && this->board.board[row][right_column] == this->player_turn)
+        while (right_column <= dimensions::num_columns && this->board.board[row][right_column] == this->player_turn)
         {
             total_count += 1;
             right_column += 1;
         };
-        if (total_count >= 4)
+        if (total_count >= dimensions::connected_win)
         {
             return true;
         };
@@ -175,13 +175,13 @@ private:
             total_count++;
         };
 
-        while (right_column <= 6 && right_row <= 5 && this->board.board[right_row][right_column] == this->player_turn)
+        while (right_column <= dimensions::num_columns && right_row <= dimensions::num_rows && this->board.board[right_row][right_column] == this->player_turn)
         {
             right_column++;
             right_row++;
             total_count++;
         };
-        if (total_count >= 4)
+        if (total_count >= dimensions::connected_win)
         {
             return true;
         };
@@ -197,20 +197,20 @@ private:
         int right_column{column + 1};
         int right_row{row - 1};
 
-        while (left_column >= 0 && left_row <= 5 && this->board.board[left_row][left_column] == this->player_turn)
+        while (left_column >= 0 && left_row <= dimensions::num_rows && this->board.board[left_row][left_column] == this->player_turn)
         {
             left_column--;
             left_row++;
             total_count++;
         };
 
-        while (right_column <= 6 && right_row >= 0 && this->board.board[right_row][right_column] == this->player_turn)
+        while (right_column <= dimensions::num_columns && right_row >= 0 && this->board.board[right_row][right_column] == this->player_turn)
         {
             right_column++;
             right_row--;
             total_count++;
         };
-        if (total_count >= 4)
+        if (total_count >= dimensions::connected_win)
         {
             return true;
         };
