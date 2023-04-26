@@ -12,5 +12,5 @@
 The algorithm utilizes Monte Carlo Tree Search (MCTS) to simulate possible game scenarios, and play a move which is most likely to lead to a win condition.
 
 <p align="center">
-<img width="300" height="300" src="img/gametree.png"/>
+<img width="350" height="300" src="img/gametree.png"/>
 </p>
