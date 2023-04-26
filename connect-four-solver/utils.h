@@ -21,7 +21,7 @@ using namespace std;
 void print_board(Board board)
 
 {
-    system("clear");
+    printf("\033c");  //clears the terminal
     cout << setw(46) << right << " 0 1 2 3 4 5 6  " << endl;
     cout << setw(45) << right << "---------------" << endl;
     for (int i{0}; i <= dimensions::num_rows; i++)
