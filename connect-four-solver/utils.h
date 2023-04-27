@@ -19,7 +19,6 @@ using namespace std;
 // Clears the terminal, and prints the current board config with
 // different colours for each token.
 void print_board(Board board)
-
 {
     printf("\033c");  //clears the terminal
     cout << setw(46) << right << " 0 1 2 3 4 5 6  " << endl;

@@ -16,7 +16,7 @@ using namespace std;
 // and an AI using MCTS to generate moves and place tokens.
 int main()
 {
-    InputArgs init_args{load_inputs()};
+    InputArgs init_args{};
 
     random_device rd;
     mt19937 rng{rd()};

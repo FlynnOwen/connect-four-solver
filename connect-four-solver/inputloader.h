@@ -16,23 +16,16 @@ public:
     bool trash_talk;
     int difficulty;
 
-    InputArgs(char ai_token_val,
-              bool trash_talk_val,
-              int difficulty_val)
-        : ai_token{ai_token_val},
-          trash_talk{trash_talk_val},
-          difficulty{difficulty_val} {};
-};
+    InputArgs(){
+        load_inputs();
+        };
 
-// Take inputs through stdin, and construct / return a InputArgs object.
-InputArgs load_inputs()
-{
+    void load_inputs(){
 
     char turn_input;
     cout << "Would you like to take the first turn? y/n" << endl;
     cin >> turn_input;
 
-    char ai_token;
     if (turn_input == 'y')
     {
         ai_token = 'O';
@@ -47,7 +40,6 @@ InputArgs load_inputs()
     cout << "Would you like the bot to trash talk? y/n" << endl;
     cin >> trash_talk_input;
 
-    char trash_talk;
     if (trash_talk_input == 'y')
     {
         trash_talk = true;
@@ -67,9 +59,8 @@ InputArgs load_inputs()
                                       {'3', 5000},
                                       {'4', 10000},
                                       {'5', 15000}};
-    int difficulty{difficulty_mapping.at(difficulty_input)};
-
-    return InputArgs(ai_token, trash_talk, difficulty);
+    difficulty = difficulty_mapping.at(difficulty_input);
+    };
 };
 
 #endif
