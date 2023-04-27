@@ -5,7 +5,11 @@
 #include <iostream>
 #include <map>
 
-using namespace std;
+using std::cout;
+using std::cin;
+using std::map;
+using std::endl;
+
 
 // Formatted arguments to be used in the main function (main.cpp).
 class InputArgs

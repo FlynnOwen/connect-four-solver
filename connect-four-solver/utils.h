@@ -14,7 +14,15 @@
 #define YELLOW "\033[33m"
 #define RED "\033[31m"
 
-using namespace std;
+using std::vector;
+using std::set;
+using std::endl;
+using std::random_device;
+using std::mt19937;
+using std::string;
+using std::right;
+using std::setw;
+using std::cout;
 
 // Clears the terminal, and prints the current board config with
 // different colours for each token.

@@ -5,7 +5,8 @@
 #include <string>
 #include "board.h"
 
-using namespace std;
+using std::vector;
+using std::map;
 
 // A single node in the gametree of MCTS. It includes the number
 // of wins, draws, and lossses for each potential column placement
@@ -15,9 +16,9 @@ class GameState
 public:
     char player_turn;
     // count of wins, draws and losses per possible column.
-    vector<int> wins{0, 0, 0, 0, 0, 0, 0};
-    vector<int> draws{0, 0, 0, 0, 0, 0, 0};
-    vector<int> losses{0, 0, 0, 0, 0, 0, 0};
+    vector <int> wins{0, 0, 0, 0, 0, 0, 0};
+    vector <int> draws{0, 0, 0, 0, 0, 0, 0};
+    vector <int> losses{0, 0, 0, 0, 0, 0, 0};
 
     GameState(char player_turn_val){
         player_turn = player_turn_val;
@@ -30,7 +31,7 @@ public:
 class GameStates
 {
 public:
-    map<vector<vector<char>>, GameState> gamestates;
+    map <vector <vector <char>>, GameState> gamestates;
 };
 
 #endif

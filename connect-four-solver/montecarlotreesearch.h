@@ -13,7 +13,9 @@
 // Constant used to balance exploration vs exploitation in UCB formula.
 #define C sqrt(2)
 
-using namespace std;
+using std::vector;
+using std::stack;
+using std::set;
 
 // Performs backpropogation from MCTS.
 // Iterate through a stack that is previous column placements of tokens, removing

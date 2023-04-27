@@ -1,12 +1,8 @@
 #ifndef _GAME_H_
 #define _GAME_H_
-#include <string>
-#include <cstdlib>
-#include <vector>
 #include "board.h"
 #include "gamestate.h"
 
-using namespace std;
 
 // Game is an encapsulation of connect 4 as a game.
 // Is includes token placement, keeping track of player turns in state,

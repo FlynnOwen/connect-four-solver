@@ -5,7 +5,8 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+using std::vector;
+
 
 namespace dimensions {
     // Number of rows in board (0-indexed)
