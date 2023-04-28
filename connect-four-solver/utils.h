@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <random>
+#include <algorithm>
 #include <iomanip>
 #include "board.h"
 #include "game.h"
@@ -23,6 +24,7 @@ using std::string;
 using std::right;
 using std::setw;
 using std::cout;
+using std::sample;
 
 // Clears the terminal, and prints the current board config with
 // different colours for each token.
