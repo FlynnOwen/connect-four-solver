@@ -21,9 +21,7 @@ public:
     vector <int> losses{0, 0, 0, 0, 0, 0, 0};
     vector <int> games{0, 0, 0, 0, 0, 0, 0};
 
-    GameState(char player_turn_val){
-        player_turn = player_turn_val;
-    };
+    GameState(){};
 
 };
 

@@ -68,7 +68,7 @@ public:
     // If there isn't a node (Gamestate) in the MCTS gametree, then create a node (Gamestate).
     void write_game_state()
     {
-        GameState game_state{this->player_turn};
+        GameState game_state{};
         if (!check_game_state())
         {
             this->gamestates.gamestates.insert({this->board.board, game_state});

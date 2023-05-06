@@ -49,7 +49,8 @@ int main()
         {
 
             simulate(my_game.gamestates, my_game, column, init_args.difficulty, rng);
-            vector<int> gamestate_games{my_game.gamestates.gamestates.at(my_game.board.board).games};
+            
+            vector<int> gamestate_games {my_game.gamestates.gamestates.at(my_game.board.board).games};
             column = max_element(gamestate_games.begin(), gamestate_games.end()) - gamestate_games.begin();
             result = my_game.place_token(column);
         };
