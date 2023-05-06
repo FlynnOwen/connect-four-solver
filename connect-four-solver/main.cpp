@@ -27,7 +27,6 @@ int main()
 
     int column{-1};
     char result;
-    my_game.write_game_state();
 
     while (true)
     {

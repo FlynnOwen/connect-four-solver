@@ -81,7 +81,9 @@ public:
         GameStates &gamestates_ref)
         : ai_player{ai_player_val},
           board{board_val},
-          gamestates{gamestates_ref} {};
+          gamestates{gamestates_ref} {
+            write_game_state();
+          };
 
 private:
     // Draw occurs if all possible spaces are filled on the board.
