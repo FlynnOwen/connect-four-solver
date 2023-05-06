@@ -5,6 +5,7 @@
 #include <random>
 #include <set>
 #include <map>
+#include <algorithm>
 #include "board.h"
 #include "game.h"
 #include "gamestate.h"
@@ -16,6 +17,9 @@
 using std::vector;
 using std::stack;
 using std::set;
+using std::isnan;
+using std::max_element;
+using std::sample;
 
 // Performs backpropogation from MCTS.
 // Iterate through a stack that is previous column placements of tokens, removing

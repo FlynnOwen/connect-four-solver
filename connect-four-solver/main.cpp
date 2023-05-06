@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <algorithm>
 #include "board.h"
 #include "game.h"
 #include "gamestate.h"
