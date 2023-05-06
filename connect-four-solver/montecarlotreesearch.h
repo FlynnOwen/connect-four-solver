@@ -59,6 +59,7 @@ void back_propogate(char result,
                     game_ref.gamestates.gamestates.at(board_ref.board).losses[ai_col] += 1;
                     break;
                 };
+                game_ref.gamestates.gamestates.at(board_ref.board).games[ai_col] += 1;
             };
         }
         else
@@ -81,7 +82,7 @@ int select(GameState game_state, set<int> column_options)
 {
 
     map<int, double> total_ucbs;
-    int total_sims{reduce(game_state.wins.begin(), game_state.wins.end()) + reduce(game_state.draws.begin(), game_state.draws.end()) + reduce(game_state.losses.begin(), game_state.losses.end())};
+    int total_sims{reduce(game_state.games.begin(), game_state.games.end())};
 
     for (int i : column_options)
     {
