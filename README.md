@@ -7,3 +7,18 @@
 </p>
 
 <p align="center"> Play against an AI using several modes of difficulty, with the addition of optional trash talking! </p>
+
+<h2 align="center"> Manual install: </h2>
+
+```console
+$ git clone https://github.com/FlynnOwen/GOL-C.git
+$ cd GOL-C
+$ make
+$ make install
+```
+
+## Usage:
+
+```console
+$ connect-four
+```
