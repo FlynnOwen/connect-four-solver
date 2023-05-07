@@ -7,10 +7,3 @@
 </p>
 
 <p align="center"> Play against an AI using several modes of difficulty, with the addition of optional trash talking! </p>
-
-<h2 align="center"> Methods </h2>
-The algorithm utilizes Monte Carlo Tree Search (MCTS) to simulate possible game scenarios, and play a move which is most likely to lead to a win condition.
-
-<p align="center">
-<img width="350" height="300" src="img/gametree.png"/>
-</p>
