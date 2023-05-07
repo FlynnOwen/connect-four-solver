@@ -11,10 +11,9 @@
 <h2 align="center"> Manual install: </h2>
 
 ```console
-$ git clone https://github.com/FlynnOwen/GOL-C.git
-$ cd GOL-C
+$ git clone https://github.com/FlynnOwen/connect-four-solver.git
+$ cd connect-four-solver
 $ make
-$ make install
 ```
 
 ## Usage:
